@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { CSSTransition } from 'react-transition-group';
 
-function App() {
+import Form from './components/Form';
+import ContactsList from './components/ContactsList';
+import Filter from './components/Filter';
+
+import styles from './App.module.scss';
+
+const App = () => {
+  const nodeRef = React.useRef(null);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <section className={styles.container}>
+      <CSSTransition
+        nodeRef={nodeRef}
+        in={true}
+        appear={true}
+        timeout={500}
+        classNames={{ ...styles }}
+        unmountOnExit
+      >
+        <h1 ref={nodeRef} className={styles.title}>
+          Phonebook
+        </h1>
+      </CSSTransition>
 
+      <Form></Form>
+      <div className={styles.contacts_container}>
+        <h2 className={styles.contact_title}>Contacts</h2>
+        <Filter />
+        <ContactsList />
+      </div>
+    </section>
+  );
+};
 export default App;
